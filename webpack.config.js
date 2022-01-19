@@ -5,13 +5,44 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 //webpack property entry output and mode 
 module.exports = {
     //entry is the source for our webpack bundle 
-    entry: './assets/js/script.js',
+   entry: {
+    app: "./assets/js/script.js",
+    events: "./assets/js/events.js",
+    schedule: "./assets/js/schedule.js",
+    tickets: "./assets/js/tickets.js"
+   },
     //tell webpack where to spit the output out to 
     output: {
         //this creates a directory for the bundle 
         path: path.join(__dirname, 'dist'),
         //filename can be anything you want it to be 
-        filename: 'main.bundle.js',
+        //create a series of bundled files one for each listing in the entry object 
+        filename: '[name].bundle.js',
+    },
+    //this object identifies the type of files to pre process with the file-loader package
+    //it uses the test property to find a regex trying to find any file with a jpg extentsion
+    module: {
+        rules: [
+            {
+                test: /\.jpg$/i,
+                //use esmodule false to prevent default behavior of file loader
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            esModule: false,
+                            name (file) {
+                                return "[path][name].[ext]"
+                            },
+                            //saves them in assets folder
+                            publicPath: function(url) {
+                                return url.replace("../", "/assets")
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
     },
     plugins: [
         new webpack.ProvidePlugin({
