@@ -23,6 +23,9 @@
     "webpack-cli": "^4.6.0"
   },
   "dependencies": {
-    "jquery": "^3.6.0"
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.6.0",
+    "popper.js": "^1.16.0",
+    "save": "^2.4.0"
   }
 }
