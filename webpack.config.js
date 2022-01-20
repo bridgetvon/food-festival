@@ -41,6 +41,8 @@ module.exports = {
                         }
                     },
                     {
+                        //npm package that is an image optimizer loader file loader emiiteed images without reducing size so this will do that 
+                        //try to optimize images in rpoduction because it can lead to a longer build time aka save it for last 
                         loader: 'image-webpack-loader'
                     }
                 ]
