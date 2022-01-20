@@ -1,6 +1,6 @@
 const path = require("path");
 const  webpack = require("webpack");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin  }= require("webpack-bundle-analyzer")
 
 //webpack property entry output and mode 
 module.exports = {
@@ -58,6 +58,11 @@ module.exports = {
             analyzerMode: "static", //report outputs to an HTML file in the dist folder
         })
     ],
+    devServer: {
+        static: {
+            directory: path.join(__dirname, ''),
+        },
+    },
     mode: 'development'
  };
 
