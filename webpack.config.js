@@ -1,6 +1,8 @@
 const path = require("path");
 const  webpack = require("webpack");
-const { BundleAnalyzerPlugin  }= require("webpack-bundle-analyzer")
+const { BundleAnalyzerPlugin  }= require("webpack-bundle-analyzer");
+const WebpackPwaManifest = require("webpack-pwa-manifest");
+const webpackPwaManifest = require("webpack-pwa-manifest");
 
 //webpack property entry output and mode 
 module.exports = {
@@ -56,6 +58,26 @@ module.exports = {
         }),
         new BundleAnalyzerPlugin({
             analyzerMode: "static", //report outputs to an HTML file in the dist folder
+        }),
+        //remember the new keyword invokes a constructor function 
+        new WebpackPwaManifest({
+            name: "Food Event",
+            short_name: "Foodies",
+            description: "An app that allows you to view upcoming food events",
+            //start url is the homepage for our pwa 
+            start_url: "../index.html",
+            background_color: "#01579b",
+            theme_color: "#ffffff",
+            //fingerprints tell webpack whether or not it should generate a unique fingerprints so that each time a new manifest is generated
+            //it looks like this : manifest.lhge325d.json
+            fingerprints: false,
+            //inject determines whether the link to the manifest.json is added to the html
+            inject: false,
+            icons: [{
+                src: path.resolve("assets/img/icons/icon-512x512.png"),
+                sizes: [96, 128, 192, 256, 384, 512],
+                destination: path.join("assets", "icons")
+            }]
         })
     ],
     devServer: {
